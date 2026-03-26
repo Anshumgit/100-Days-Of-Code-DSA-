@@ -1,0 +1,49 @@
+//https://www.naukri.com/code360/problems/convert-bst-to-min-heap_920498?leftPanelTabValue=SUBMISSION
+
+#include <bits/stdc++.h> 
+using namespace std;
+/*************************************************************
+    
+    Following is the Binary Tree node structure:
+
+	class BinaryTreeNode {
+		
+	public :
+		int data;
+		BinaryTreeNode* left;
+		BinaryTreeNode* right;
+
+		BinaryTreeNode(int data) {
+		this -> left = NULL;
+		this -> right = NULL;
+		this -> data = data;
+		}
+	};
+
+*************************************************************/
+	void inorder(BinaryTreeNode* root , vector<int> &in){
+        if(root == NULL){
+            return;
+        }
+        inorder(root -> left , in);
+        in.push_back(root -> data);
+        inorder(root -> right , in);
+    }
+    
+    void fillPreOrder(BinaryTreeNode* root ,vector<int> &in , int &idx){
+        if(root == NULL){
+			return;
+		}
+		root -> data = in[idx++];
+        fillPreOrder(root -> left , in , idx);
+        fillPreOrder(root -> right , in , idx);
+    }
+BinaryTreeNode* convertBST(BinaryTreeNode* root){
+	// Write your code here.
+	vector<int> in;
+	inorder(root , in);
+
+	int idx = 0;
+	fillPreOrder(root , in , idx);
+	return root;
+}
